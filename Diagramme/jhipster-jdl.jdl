@@ -1,0 +1,73 @@
+
+entity Utilisateur {
+	idUtilisateur Int
+    nomUtilisateur String
+    postnomUtilisateur String
+    motdepasse String
+    recette Recette
+    favoris Favoris
+    feedbacks FeedBack
+    questions Question
+}
+
+entity Recette {
+	idRecette Int
+    titreRecette String
+    ingredientsRecette String
+    instructions String
+    categorie String
+    niveauDifficulte Difficulte
+    TempsPreparation Time
+    LienPhotos String
+    Auteur Utilisateur
+    feedbacks FeedBack
+    questions Question
+    favoris Favoris
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity FeedBack {
+	idFeedback Int
+    auteur Utilisateur
+    recette Recette
+    commentaire String
+    note Int
+}
+
+entity Question {
+	idQuestion Int
+    auteur Utilisateur
+    recette Recette
+    question String
+}
+
+entity Favoris{
+	idFavoris Int
+    recette Recette
+    auteur Utilisateur
+}
+
+enum Difficulte {
+    FACILE, MOYEN, DIFFICILE
+}
+
+relationship OneToOne{
+	Recette{Auteur} to Utilisateur,
+    FeedBack{recette} to Recette,
+    Question{recette} to Recette,
+    Favoris{recette} to Recette,
+    Question{questions} to Utilisateur,
+    Favoris{auteur} to Utilisateur,
+    FeedBack{auteur} to Utilisateur
+}
+
+relationship ManyToOne{
+	Utilisateur{recette} to Recette,
+    Recette{feedbacks} to FeedBack,
+    Recette{questions} to Question
+    Recette{favoris} to Favoris,
+    Utilisateur{questions} to Question,
+    Utilisateur{favoris} to Favoris,
+  	Utilisateur{feedbacks} to FeedBack
+}
