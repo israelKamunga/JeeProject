@@ -59,10 +59,10 @@ relationship OneToOne{
     Favoris{recette} to Recette,
     Question{questions} to Utilisateur,
     Favoris{auteur} to Utilisateur,
-    FeedBack{auteur} to Utilisateur
+    FeedBack{auteur} to Utilisateur,
 }
 
-relationship ManyToOne{
+relationship ManyToMany{
 	Utilisateur{recette} to Recette,
     Recette{feedbacks} to FeedBack,
     Recette{questions} to Question
