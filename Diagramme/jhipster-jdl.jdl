@@ -4,10 +4,6 @@ entity Utilisateur {
     nomUtilisateur String
     postnomUtilisateur String
     motdepasse String
-    recette Recette
-    favoris Favoris
-    feedbacks FeedBack
-    questions Question
 }
 
 entity Recette {
@@ -19,27 +15,21 @@ entity Recette {
     niveauDifficulte Difficulte
     TempsPreparation Time
     LienPhotos String
-    Auteur Utilisateur
-    feedbacks FeedBack
-    questions Question
-    favoris Favoris
 }
 
 // an ignored comment
 /** not an ignored comment */
 entity FeedBack {
 	idFeedback Int
-    auteur Utilisateur
-    recette Recette
     commentaire String
     note Int
 }
 
 entity Question {
 	idQuestion Int
-    auteur Utilisateur
-    recette Recette
     question String
+    recette Recette
+    auteur Utilisateur
 }
 
 entity Favoris{
