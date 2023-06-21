@@ -1,63 +1,54 @@
 
 entity Utilisateur {
-	idUtilisateur Int
-    nomUtilisateur String
-    postnomUtilisateur String
-    motdepasse String
+	id String
+	nom String
+    prenom String
+    adresseEmail String
+    motDePasse String
 }
 
-entity Recette {
-	idRecette Int
-    titreRecette String
-    ingredientsRecette String
-    instructions String
-    categorie String
-    niveauDifficulte Difficulte
-    TempsPreparation Time
-    LienPhotos String
+entity Evenement{
+	titre String
+    description String
+    date LocalDate
+    heure ZonedDateTime
+    lieu String
+    capacite Integer
+    IdUserOwner Integer
 }
 
-// an ignored comment
-/** not an ignored comment */
-entity FeedBack {
-	idFeedback Int
-    commentaire String
-    note Int
+entity Inscription{
+	idInscription Integer
+    idEvenment Integer
+    idUserOwner Integer
+}
+entity Calendrier{
+	Evenements Evenement
 }
 
-entity Question {
-	idQuestion Int
-    question String
-    recette Recette
-    auteur Utilisateur
+entity ReseauSocial{
+	idReseauSocial Integer
+    nom String
+    compte String
+    identitifiant String
+    motDePasse String
+    idUserOwner Integer
 }
 
-entity Favoris{
-	idFavoris Int
-    recette Recette
-    auteur Utilisateur
+entity Partage{
+	idPartage Integer
+	idEvenment Integer
 }
 
-enum Difficulte {
-    FACILE, MOYEN, DIFFICILE
+relationship OneToMany{
+	Utilisateur to Evenemeent
+    Utilisateur to Inscription
+    Utilisateur to Partage
+    Evenement to Inscription
+    Evenement to Partage
+    Calendrier to Evenement
 }
 
 relationship OneToOne{
-	Recette{Auteur} to Utilisateur,
-    FeedBack{recette} to Recette,
-    Question{recette} to Recette,
-    Favoris{recette} to Recette,
-    Question{questions} to Utilisateur,
-    Favoris{auteur} to Utilisateur,
-    FeedBack{auteur} to Utilisateur,
-}
-
-relationship ManyToMany{
-	Utilisateur{recette} to Recette,
-    Recette{feedbacks} to FeedBack,
-    Recette{questions} to Question
-    Recette{favoris} to Favoris,
-    Utilisateur{questions} to Question,
-    Utilisateur{favoris} to Favoris,
-  	Utilisateur{feedbacks} to FeedBack
+	Utilisateur to ReseauSocial
 }
